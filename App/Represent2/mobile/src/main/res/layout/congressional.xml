@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="550px"
+        android:orientation="vertical"
+        android:background="#000000"
+        android:layout_marginTop="50px">
+
+    <ImageView
+        android:layout_width="450px"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/pic"
+        android:src="@drawable/ex1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sen. Mark Warner"
+        android:textSize="60px"
+        android:fontFamily="sans-serif-black"
+        android:id="@+id/name"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/pic"
+        android:layout_marginStart="10dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tweet_bird"
+        android:src="@drawable/whitetwitter"
+        android:layout_below="@+id/name"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About to go live w/ @RepMcCaul on @WolfBlitzer @CNN discussing our commission on #digitalsecurity &amp; #privacy"
+        android:id="@+id/tweet"
+        android:textColor="#FFFFFF"
+        android:textSize="35px"
+        android:layout_alignTop="@+id/tweet_bird"
+        android:layout_toEndOf="@+id/tweet_bird"
+        android:layout_marginStart="15dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:src="@drawable/whiteemail"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/tweet_bird" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/web"
+        android:src="@drawable/whiteearth"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="0px"
+        android:textColor="#FFFFFF"
+        android:id="@+id/website"
+        android:layout_below="@+id/tweet"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="0px"
+        android:textColor="#FFFFFF"
+        android:id="@+id/emailaddress"
+        android:layout_below="@+id/web"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

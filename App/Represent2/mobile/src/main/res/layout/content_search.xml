@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:fitsSystemWindows="true"
+android:orientation="vertical" >
+
+
+<!--<SearchView-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:id="@+id/searchView2"-->
+<!--android:layout_centerVertical="true"-->
+<!--android:layout_centerHorizontal="true" />-->
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#303030"
+    android:layout_alignParentStart="true"
+    android:layout_alignBottom="@+id/include">
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/zipCode"
+        android:onClick="search"
+        android:textColor="#FFFFFF"
+        android:layout_alignBottom="@+id/Search"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/Search"
+        android:hint="Zip Code"
+        android:textColorHint="#FFFFFF"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Search"
+        android:src="@drawable/mag"
+        android:layout_alignParentTop="true"
+        android:onClick="search"
+        android:layout_toStartOf="@+id/locationSearch"
+        android:layout_alignBottom="@+id/locationSearch" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:id="@+id/locationSearch"
+        android:src="@drawable/whitearrow"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:fillViewport="true"
+        android:layout_below="@+id/zipCode"
+        android:layout_centerHorizontal="true">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/repList"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+</RelativeLayout>
+</RelativeLayout>

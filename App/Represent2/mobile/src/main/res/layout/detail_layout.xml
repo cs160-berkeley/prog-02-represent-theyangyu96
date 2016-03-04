@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#303030"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView3"
+        android:layout_gravity="center_horizontal" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="500px"
+                android:scaleType="centerCrop"
+                android:id="@+id/backdrop"
+                android:src="@drawable/donkey" />
+
+            <ImageView
+                android:layout_width="500px"
+                android:layout_height="500px"
+                android:layout_marginTop="-250px"
+                android:scaleType="centerCrop"
+                android:id="@+id/headShot"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ex1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Sen. Mark Robert Warner (D)"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="40px"
+                android:textSize="75px"
+                android:id="@+id/name"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="10px"
+                android:text="Term Ends: November 10, 2020"
+                android:fontFamily="sans-serif-condensed-light"
+                android:id="@+id/term"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50px"
+                android:textSize="65px"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginLeft="20px"
+                android:textColor="#FFFFFF"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Current Committees"
+                android:id="@+id/currentCommittees" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/commitee"></LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50px"
+                android:textSize="65px"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginLeft="20px"
+                android:textColor="#FFFFFF"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Bill Sponsored"
+                android:id="@+id/bill_sponsored" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/bill"></LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView"
+        android:layout_gravity="right" />
+</LinearLayout>
