@@ -4,15 +4,24 @@ Briefly describe your app here.
 
 ## Authors
 
-FirstName LastName ([your_email@berkeley.edu](mailto:your_email@berkeley.edu))
+Yang Yu ([yangyu@berkeley.edu](mailto:your_email@berkeley.edu))
 
 ## Demo Video
 
-See [your demo video title here] (https://link_to_your_video)
+See [Represent!] (https://youtu.be/k7PGE_YG4lI)
 
 ## Screenshots
 
-<img src="screenshots/main.png" height="400" alt="Screenshot"/>
+<img src="screenshots/capture.PNG" alt="Screenshot"/>
+
+
+<img src="screenshots/congressional.PNG" alt="Screenshot"/>
+
+
+<img src="screenshots/watch0.PNG" alt="Screenshot"/>
+
+
+<img src="screenshots/watch1.PNG" alt="Screenshot"/>
 
 ## Acknowledgments
 
