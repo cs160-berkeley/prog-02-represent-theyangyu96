@@ -12,7 +12,7 @@ See [Represent!] (https://youtu.be/k7PGE_YG4lI)
 
 ## Screenshots
 
-<img src="screenshots/capture.PNG" alt="Screenshot"/>
+<img src="screenshots/Capture.PNG" alt="Screenshot"/>
 
 
 <img src="screenshots/congressional.PNG" alt="Screenshot"/>
@@ -25,5 +25,5 @@ See [Represent!] (https://youtu.be/k7PGE_YG4lI)
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Any other support
+* Thanks to all the Staff and Professor Paulos for making CS160 so wonderful
+* The Noun Project for providing me with some icons to work with
