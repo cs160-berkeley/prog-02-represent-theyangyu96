@@ -9,6 +9,8 @@
         android:textSize = "50px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15px"
+        android:layout_marginRight="75px"
         android:text="asdfasdfaf "
         android:id="@+id/c1"
         android:fontFamily="sans-serif-condensed"

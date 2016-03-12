@@ -34,6 +34,10 @@
             android:name=".WatchToPhoneService"
             android:enabled="true"
             android:exported="true"></service>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="bd74dab2b9fed5f463f5ba28c0bc7cac13320b13" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

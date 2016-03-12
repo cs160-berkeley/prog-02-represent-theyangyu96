@@ -20,8 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="500px"
                 android:scaleType="centerCrop"
-                android:id="@+id/backdrop"
-                android:src="@drawable/donkey" />
+                android:id="@+id/backdrop" />
 
             <ImageView
                 android:layout_width="500px"
@@ -29,14 +28,12 @@
                 android:layout_marginTop="-250px"
                 android:scaleType="centerCrop"
                 android:id="@+id/headShot"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ex1" />
+                android:layout_gravity="center_horizontal" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Sen. Mark Robert Warner (D)"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="#FFFFFF"
                 android:layout_marginTop="40px"
@@ -50,7 +47,6 @@
                 android:textColor="#FFFFFF"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_marginTop="10px"
-                android:text="Term Ends: November 10, 2020"
                 android:fontFamily="sans-serif-condensed-light"
                 android:id="@+id/term"
                 android:layout_gravity="center_horizontal" />

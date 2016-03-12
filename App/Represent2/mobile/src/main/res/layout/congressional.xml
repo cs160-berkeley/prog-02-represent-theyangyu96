@@ -42,9 +42,11 @@
         android:id="@+id/tweet"
         android:textColor="#FFFFFF"
         android:textSize="35px"
-        android:layout_alignTop="@+id/tweet_bird"
-        android:layout_toEndOf="@+id/tweet_bird"
-        android:layout_marginStart="15dp" />
+        android:layout_marginLeft="30px"
+        android:layout_marginTop="20px"
+        android:layout_below="@+id/name"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/tweet_bird" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -79,6 +81,30 @@
         android:textSize="0px"
         android:textColor="#FFFFFF"
         android:id="@+id/emailaddress"
+        android:layout_below="@+id/web"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="0px"
+        android:textColor="#FFFFFF"
+        android:id="@+id/bio"
+        android:layout_below="@+id/web"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="0px"
+        android:textColor="#FFFFFF"
+        android:id="@+id/term"
+        android:layout_below="@+id/web"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="0px"
+        android:textColor="#FFFFFF"
+        android:id="@+id/party"
         android:layout_below="@+id/web"
         android:layout_centerHorizontal="true" />
 

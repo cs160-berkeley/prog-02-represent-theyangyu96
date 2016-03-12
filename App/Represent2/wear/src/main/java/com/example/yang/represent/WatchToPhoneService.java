@@ -24,7 +24,7 @@ public class WatchToPhoneService extends Service implements GoogleApiClient.Conn
 
     private GoogleApiClient mWatchApiClient;
     private List<Node> nodes = new ArrayList<>();
-    private String name ="";
+    private String bg ="";
     private String zp = "";
     @Override
     public void onCreate() {
@@ -49,7 +49,7 @@ public class WatchToPhoneService extends Service implements GoogleApiClient.Conn
         if (((Bundle) intent.getExtras()).getString("path") != null){
                 zp = ((Bundle) intent.getExtras()).getString("Zip_Code");
         } else {
-            name = ((Bundle) intent.getExtras()).getString("person");
+            bg = ((Bundle) intent.getExtras()).getString("bg");
         }
         return START_STICKY;
     }
@@ -73,7 +73,7 @@ public class WatchToPhoneService extends Service implements GoogleApiClient.Conn
                         if (!zp.equals("")) {
                             sendMessage("/cong", zp);
                         } else {
-                            sendMessage("/detail", name);
+                            sendMessage("/detail", bg);
                         }
                     }
                 });

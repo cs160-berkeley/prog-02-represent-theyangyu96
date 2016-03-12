@@ -1,121 +1,256 @@
 package com.example.yang.represent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class Detail extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class Detail extends AppCompatActivity {
+    String bio = null;
+    String term = null;
+    String party = null;
+    String name = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        Representative mark = new Representative("Mark Warner", "Democrat", "Sen.", "November 11, 2020","About to go live w/ " +
-                "@RepMcCaul on @WolfBlitzer @CNN discussing our commission on #digitalsecurity & #privacy", R.drawable.ex1,"https://www.mwarner.com","mark@warner.com");
-
-        Representative tim = new Representative("Tim Kaine", "Democrat", "Sen.", "November 11, 2018","I'll be on @NPR at 8:20pm to discuss the " +
-                "#SuperTuesday results in Virginia. Tune in!", R.drawable.ex2,"timkaine.com","tim@akine.com");
-
-        Representative barb = new Representative("Barbara Comstock", "Republican", "Rep.", "November 11, 2016", "Be sure to get to your regular polling " +
-                "place before 7PM tonight to cast your vote! ", R.drawable.ex3,"https://comstock.house.gov","xxx@comstock.com");
-        String markComm[] = {"Senate Committee on Banking, Housing, and Urban Affairs", "Senate Committee on the Budget",
-                "Senate Committee on Finance", "Senate Committee on Rules and Administration", "Senate Select Committee on Intelligence"};
-        String timComm[] = {"Senate Committee on Armed Services", "Senate Committee on the Budget", "Senate Committee on Foreign Relations", "Senate Special Committee on Aging"};
-        String barbComm[] = {"House Committee on Science, Space, and Technology", "House Committee on House Administration", "House Committee on Transportation and Infrastructure"};
-
-        String barbBill[] = {"H.R. 4102: Student Loan Relief Act of 2015 \n\t " +
-                "Nov 19, 2015", "H.R. 3585: Surface Transportation Research and Development Act of 2015 \n\t" +
-                "Sep 22, 2015", "H.R. 1119: Research and Development Efficiency Act \n\t" +
-                "May 19, 2015"};
-
-
-
-        //get info
         Bundle extras = getIntent().getExtras();
-        String name = "";
         if (extras != null) {
-            name = extras.getString("rep");
-        }
-        //assign dummmy rep, refactor later.
-        Representative dummy;
-        if (name.equals(mark.getFullName())){
-            dummy = mark;
-        } else if (name.equals(tim.getFullName())){
-            dummy = tim;
-        } else {
-            dummy = barb;
-        }
-        //set picture
-        ImageView pic = (ImageView)findViewById(R.id.headShot);
-        pic.setImageResource(dummy.getPicAdress());
-        //set name and backdrop
-        ImageView bg = (ImageView)findViewById(R.id.backdrop);
-        TextView title = (TextView)findViewById(R.id.name);
-        if (dummy.getParty().equals("Democrat")) {
-            bg.setImageResource(R.drawable.donkey);
-            title.setText(dummy.getPosition()+" "+name+" (D)");
-        } else {
-            bg.setImageResource(R.drawable.elephant);
-            title.setText(dummy.getPosition() + " " + dummy.getFullName() + " (R)");
-        }
-        //set Term
-        TextView termEnd = (TextView)findViewById(R.id.term);
-        termEnd.setText("Term ends: "+dummy.getTermEnd());
-        //fill in comm
-        LinearLayout comm = ((LinearLayout)findViewById(R.id.commitee));
-        LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService
-                (getApplicationContext().LAYOUT_INFLATER_SERVICE);
-        if (name.equals(mark.getFullName())){
-            for (int i = 0; i < markComm.length; i++){
-                View to_add = inflater.inflate(R.layout.subpoints,comm,false);
-                ((TextView)to_add.findViewById(R.id.c1)).setText("- "+markComm[i]);
-                comm.addView(to_add, 0);
-            }
-        } else if (name.equals(tim.getFullName())){
-            for (int i = 0; i < timComm.length; i++){
-                View to_add = inflater.inflate(R.layout.subpoints,comm,false);
-                ((TextView)to_add.findViewById(R.id.c1)).setText("- "+timComm[i]);
-                comm.addView(to_add, 0);
-            }
-        } else {
-            for (int i = 0; i < barbComm.length; i++){
-                View to_add = inflater.inflate(R.layout.subpoints,comm,false);
-                ((TextView)to_add.findViewById(R.id.c1)).setText("- "+barbComm[i]);
-                comm.addView(to_add, 0);
-            }
-        }
-        //fill in bills
-        LinearLayout bills = ((LinearLayout)findViewById(R.id.bill));
-        LayoutInflater inflater2 = (LayoutInflater)getApplicationContext().getSystemService
-                (getApplicationContext().LAYOUT_INFLATER_SERVICE);
-        if (name.equals(mark.getFullName())){
-            for (int i = 0; i < barbBill.length; i++){
-                View to_add = inflater2.inflate(R.layout.subpoints,bills,false);
-                ((TextView)to_add.findViewById(R.id.c1)).setText("- "+barbBill[i]);
-                bills.addView(to_add, 0);
-            }
-        } else if (name.equals(tim.getFullName())){
-            for (int i = 0; i < barbBill.length; i++){
-                View to_add = inflater2.inflate(R.layout.subpoints,bills,false);
-                ((TextView)to_add.findViewById(R.id.c1)).setText("- "+barbBill[i]);
-                bills.addView(to_add, 0);
-            }
-        } else {
-            for (int i = 0; i < barbBill.length; i++){
-                View to_add = inflater2.inflate(R.layout.subpoints,bills,false);
-                ((TextView)to_add.findViewById(R.id.c1)).setText("- "+barbBill[i]);
-                bills.addView(to_add, 0);
-            }
+            bio = extras.getString("bio");
         }
 
 
-
-
+        new fill_in().execute(bio);
     }
+    class fill_in extends AsyncTask<String, String, String> {
+        Bitmap headshot = null;
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                String bio_id = params[0];
+                Bitmap image = null;
+                int inSampleSize = 0;
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                options.inSampleSize = inSampleSize;
+                try
+                {
+                    URL url = new URL(String.format("https://theunitedstates.io/images/congress/original/%1$s.jpg",bio_id));
+                    HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                    InputStream stream = connection.getInputStream();
+                    image = BitmapFactory.decodeStream(stream, null, options);
+                    options.inJustDecodeBounds = false;
+                    connection = (HttpURLConnection)url.openConnection();
+                    stream = connection.getInputStream();
+                    image = BitmapFactory.decodeStream(stream, null, options);
+                    headshot = image;
+                    return bio_id;
+                } catch(Exception e) {
+                    Log.e("ABCD", "1:"+e.toString());
+                    return null;
+                }
+            }
+            catch(Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
+        }
+        protected void onPostExecute(String response) {
+            if(response == null) {
+                response = "THERE WAS AN ERROR1";
+                return ;
+            }
+            ((ImageView)findViewById(R.id.headShot)).setImageBitmap(headshot);
+            new basic().execute(response);
+        }
+    }
+
+
+        class basic extends AsyncTask<String, String, String> {
+            String bio_id = null;
+
+            @Override
+            protected String doInBackground(String... params) {
+                try {
+                    bio_id = params[0];
+                    String API_Call = String.format("http://congress.api.sunlightfoundation.com/legislators?bioguide_id=%1$s&apikey=%2$s",
+                            bio_id, getString(R.string.sunshine_API_key));
+
+                    URL url = new URL(API_Call);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    try {
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                        StringBuilder stringBuilder = new StringBuilder();
+                        String line;
+                        while ((line = bufferedReader.readLine()) != null) {
+                            stringBuilder.append(line).append("\n");
+                        }
+                        bufferedReader.close();
+                        return stringBuilder.toString();
+                    } finally {
+                        urlConnection.disconnect();
+                    }
+                } catch (Exception e) {
+                    Log.d("ABCD", e.toString());
+                    return null;
+                }
+            }
+
+            protected void onPostExecute(String response) {
+                if (response == null) {
+                    response = "THERE WAS AN ERROR1";
+                }
+                try {
+                    JSONObject json_obj = new JSONObject(response);
+                    JSONArray single_person = json_obj.getJSONArray("results");
+                    JSONObject g = single_person.getJSONObject(0);
+
+                    ((TextView) findViewById(R.id.term)).setText("Term ends: " + g.getString("term_end"));
+                    ((TextView) findViewById(R.id.name)).setText(g.getString("title")+" "+g.getString("first_name") + " " + g.getString("last_name") + " (" + g.getString("party") + ")");
+                    ImageView bg = ((ImageView) findViewById(R.id.backdrop));
+                    if (g.getString("party").equals("D")) {
+                        bg.setImageResource(R.drawable.donkey);
+                    } else {
+                        bg.setImageResource(R.drawable.elephant);
+                    }
+                    new committee_fill().execute(bio_id);
+                } catch (JSONException e) {
+                    Log.d("ABCD", e.toString());
+                }
+            }
+        }
+
+
+
+    class committee_fill extends AsyncTask<String, String, String> {
+        String bio = null;
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                String bio_id = params[0];
+                bio = bio_id;
+                String API_Call = String.format("http://congress.api.sunlightfoundation.com/committees?member_ids=%1$s&apikey=%2$s",
+                        bio_id, getString(R.string.sunshine_API_key));
+
+                URL url = new URL(API_Call);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            } catch (Exception e) {
+                Log.d("ABCD", e.toString());
+                return null;
+            }
+        }
+
+        protected void onPostExecute(String response) {
+            if(response == null) {
+                response = "THERE WAS AN ERROR1";
+            }
+            try {
+                JSONObject json_obj = new JSONObject(response);
+                JSONArray committees = json_obj.getJSONArray("results");
+                int num_com = committees.length();
+                LinearLayout comm = ((LinearLayout)findViewById(R.id.commitee));
+                LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService
+                        (getApplicationContext().LAYOUT_INFLATER_SERVICE);
+
+                for (int i = 0; i < num_com; i++) {
+                    final JSONObject committee = committees.getJSONObject(i);
+                    View to_add = inflater.inflate(R.layout.subpoints, comm, false);
+                    ((TextView)to_add.findViewById(R.id.c1)).setText("- "+committee.getString("name"));
+                    comm.addView(to_add, 0);
+                }
+                new bill_fill().execute(bio);
+            } catch (JSONException e){
+                Log.d("ABCD",e.toString());
+            }
+        }
+    }
+
+    class bill_fill extends AsyncTask<String, String, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                String bio_id = params[0];
+                String API_Call = String.format("http://congress.api.sunlightfoundation.com/bills/search?cosponsor_ids=%1$s&apikey=%2$s",
+                        bio_id, getString(R.string.sunshine_API_key));
+
+                URL url = new URL(API_Call);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            } catch (Exception e) {
+                Log.d("ABCD", e.toString());
+                return null;
+            }
+        }
+
+        protected void onPostExecute(String response) {
+            if(response == null) {
+                response = "THERE WAS AN ERROR1";
+            }
+            try {
+                JSONObject json_obj = new JSONObject(response);
+                JSONArray bills = json_obj.getJSONArray("results");
+                int num_bills = bills.length();
+                LinearLayout bills_layout = ((LinearLayout)findViewById(R.id.bill));
+                LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService
+                        (getApplicationContext().LAYOUT_INFLATER_SERVICE);
+                if (num_bills > 5)
+                    num_bills = 7;
+                for (int i = 0; i < num_bills; i++) {
+                    final JSONObject bill = bills.getJSONObject(i);
+                    View to_add = inflater.inflate(R.layout.subpoints, bills_layout, false);
+                    String bill_name = bill.getString("short_title");
+                    if (bill_name!=null && !bill_name.equals("null")) {
+                        ((TextView)to_add.findViewById(R.id.c1)).setText("- "+bill_name+"\n\t"+"Introduced on "+bill.getString("introduced_on"));
+                        bills_layout.addView(to_add, 0);
+                    }
+                }
+            } catch (JSONException e){
+                Log.d("ABCD",e.toString());
+            }
+        }
+    }
+
 
 }

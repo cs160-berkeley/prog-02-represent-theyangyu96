@@ -5,4 +5,6 @@
     <string name="title_activity_search">Search</string>
     <string name="title_activity_detail">Detail</string>
     <string name="google_app_id">2345678</string>
+    <string name="sunshine_API_key">INSERT YOURS</string>
+    <string name="google_API_key">INSERT YOURS</string>
 </resources>

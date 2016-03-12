@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.MessageApi;
@@ -46,12 +47,24 @@ public class PhoneToWatchService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Which cat do we want to feed? Grab this info from INTENT
         // which was passed over when we called startService
+        if (null == intent) {
+            return START_STICKY;
+        }
         Bundle extras = intent.getExtras();
         String zp = "";
+        String [] rep_list;
+        String message = "";
         if (extras != null) {
             zp = extras.getString("Zip_Code");
+            rep_list = extras.getStringArray("rep_list");
+            message = zp;
+            for (int i = 0; i < rep_list.length; i++) {
+                message = message + "|" +rep_list[i];
+            }
+
         }
-        final String temp = zp;
+        final String temp = message;
+        Log.d("ABCD", temp);
         // Send the message with the cat name
         new Thread(new Runnable() {
             @Override
